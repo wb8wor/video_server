@@ -1,0 +1,144 @@
+body {
+	background: url("media/fast-mountain-stream-edited.jpg") no-repeat center;
+	background-size:cover;
+    font-family: Helvetica, sans-serif;
+    font-size: 12px;
+}
+.gallery {
+    padding: 30px;
+    text-align: center;
+}
+.gallery .controls {
+    display: inline-block;
+    padding: 50px;
+}
+.thumbflow-container {
+    box-reflect: below 0px -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.1) 100%);
+}
+
+.thumbflow-list {
+    width: 100%;
+}
+.thumbflow-list .thumbflow-item {
+    display: inline-block;
+    background: #414141;
+    margin: 0 -50px;
+    position: relative;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+}
+.thumbflow-list .thumbflow-item .thumb-cover {
+    display: block;
+    width: 150px;
+    height: 83px;
+    margin: 0;
+}
+.thumbflow-list .thumbflow-item .thumb-cover img {
+    height: 83px;
+    width: 150px;
+    opacity: 0.5;
+}
+.thumbflow-list .thumbflow-item .thumb-name {
+    text-align: center;
+    display: block;
+    color: #444;
+}
+.thumbflow-list .thumbflow-item label {
+    padding: 0;
+    border: none;
+    display: block;
+    text-shadow: none;
+}
+/* Now apply 3D transforms (never done this before!) */
+.thumbflow-list {
+    -webkit-transform: perspective(900px);
+    -webkit-transform-style: preserve-3d;
+    -webkit-perspective-origin: 100% 30%;
+}
+.thumbflow-list .thumbflow-item {
+    -webkit-transition: all 0.4s ease;
+    background: #212121;
+    -webkit-transform: rotateY(45deg);
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"]:checked + .thumbflow-item {
+  -webkit-transform: rotateY(0deg);
+  margin: 0 auto;
+  background: #313131;
+  transition: all 0.4s ease;
+}
+
+input[type="radio"]:checked + .thumbflow-item img {
+  opacity: 1;
+}
+
+input[type="radio"]:checked + .thumbflow-item figcaption {
+  color: #FFFFFF;
+}
+
+input[type="radio"]:checked + .thumbflow-item ~ .thumbflow-item {
+  -webkit-transform: rotateY(-45deg);
+  background: #515151;
+}
+
+h1 { 
+	font-size:16px;
+	color:#333;
+}
+
+#media-player {
+	margin:0 auto;
+	width:720px;
+	padding:1em 1em 0.5em;
+	background-color:#333;
+}
+
+video {
+	width:inherit;
+	border:1px solid #2e52a4;
+	background:#000;
+}
+
+button {
+	text-indent:-9999px;
+	width:16px;
+	height:16px;
+	border:none;
+	cursor:pointer;
+	background:transparent url('buttons.png') no-repeat 0 0;
+}
+
+.pause { background-position:-19px 0; }
+.stop { background-position:-38px 0; }
+.volume-plus { background-position:-57px 0; }
+.volume-minus { background-position:-76px 0; }
+.mute { background-position:-95px 0; }
+.unmute { background-position:-114px 0; }
+.replay { background-position:-133px 0; }
+
+/* Need to work on fullscreen.
+.fullscreen { background-position:-152px 0; }
+.exitfullscreen { bacground-position:-171px 0; }
+*/
+
+progress {
+	color:#f00;
+	font-size:0px;
+	width:inherit;
+	height:1px;
+	border:none;
+	margin-right:5px;
+	background:#333;
+}
+progress::-webkit-progress-bar {
+    background:#333;
+}
+
+progress::-webkit-progress-value {
+	background:#f00
+}
+
+progress::-moz-progress-bar { background:#2e52a4; }
