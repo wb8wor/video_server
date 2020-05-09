@@ -27,46 +27,16 @@ function initializeMediaPlayer() {
     playPauseBtn = document.getElementById('play-pause-button');
     muteBtn = document.getElementById('mute-button');
     progressBar = document.getElementById('progress-bar');
-//    fullscreenBtn = document.getElementById('fullscreen-button');
+    //    fullscreenBtn = document.getElementById('fullscreen-button');
 
     // Set up the thumbnail flow.
     loadJSON (function (media_list) {
-	var mydata = JSON.parse(media_list);
-	var collection_string="";
-	
-	mydata.forEach (function(element, i) {
-	    collection_string += '<input type="radio" name="thumb-item" id=" thumb-'+ i + '"></input>'
-		+ '<li class="thumbflow-item">'
-		+ '  <label for=" thumb-' + i + '">'
-		+ '    <figure class="thumb-cover">'
-		+ '      <img onclick=\'loadVideo ("' + element.media_name + '","' + element.media_type +'");\' src="' + element.thumbnail_name + '"></img>'
-		+ '      <figcaption class="thumb-name">' + element.media_caption + '</figcaption>'
-		+ '    </figure>'
-		+ '  </label>'
-		+ '</li>';
+	makeThumbFlow (media_list, "thumbflow-list");
+    }, "media-list.json");
 
-	    document.getElementById ("thumbflow-list").innerHTML = collection_string;
-	});
-    });
-    
-    loadJSON1 (function (media_list) {
-	var mydata = JSON.parse(media_list);
-	var collection_string="";
-	
-	mydata.forEach (function(element, i) {
-	    collection_string += '<input type="radio" name="thumb-item" id=" thumb-'+ i + '"></input>'
-		+ '<li class="thumbflow-item">'
-		+ '  <label for=" thumb-' + i + '">'
-		+ '    <figure class="thumb-cover">'
-		+ '      <img onclick=\'loadVideo ("' + element.media_name + '","' + element.media_type +'");\' src="' + element.thumbnail_name + '"></img>'
-		+ '      <figcaption class="thumb-name">' + element.media_caption + '</figcaption>'
-		+ '    </figure>'
-		+ '  </label>'
-		+ '</li>';
-
-	    document.getElementById ("thumbflow-list1").innerHTML = collection_string;
-	});
-    });
+    loadJSON (function (media_list) {
+	makeThumbFlow (media_list, "thumbflow-list1");
+    }, "media-list1.json");
     
    // Add a listener for the timeupdate event so we can update the progress bar
     mediaPlayer.addEventListener('timeupdate', updateProgressBar, false);
@@ -102,6 +72,25 @@ function initializeMediaPlayer() {
     mediaPlayer.addEventListener('ended', function() { this.pause(); }, false);
 }
 
+function makeThumbFlow (media_list, div_name) {
+    var mydata = JSON.parse(media_list);
+    var collection_string="";
+    
+    mydata.forEach (function(element, i) {
+	collection_string += '<input type="radio" name="thumb-item" id=" thumb-'+ i + '"></input>'
+	    + '<li class="thumbflow-item">'
+	    + '  <label for=" thumb-' + i + '">'
+	    + '    <figure class="thumb-cover">'
+	    + '      <img onclick=\'loadVideo ("' + element.media_name + '","' + element.media_type +'");\' src="' + element.thumbnail_name + '"></img>'
+	    + '      <figcaption class="thumb-name">' + element.media_caption + '</figcaption>'
+	    + '    </figure>'
+	    + '  </label>'
+	    + '</li>';
+
+	document.getElementById (div_name).innerHTML = collection_string;
+    });
+}
+    
 /* Function to open fullscreen mode */
 function openFullscreen() {
   /* Get the element you want displayed in fullscreen */ 
@@ -129,24 +118,10 @@ function togglePlayPause() {
     }
 }
 
-function loadJSON (callback) {
+function loadJSON (callback, fname) {
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType ("application/json");
-    xobj.open ('GET', 'media-list.json', true);
-
-    xobj.onreadystatechange = function () {
-	if (xobj.readyState == 4 && xobj.status == "200") {
-	    callback (xobj.responseText);
-	}
-    };
-
-    xobj.send (null);
-}
-
-function loadJSON1 (callback) {
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType ("application/json");
-    xobj.open ('GET', 'media-list1.json', true);
+    xobj.open ('GET', fname, true);
 
     xobj.onreadystatechange = function () {
 	if (xobj.readyState == 4 && xobj.status == "200") {
