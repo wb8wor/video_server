@@ -1,0 +1,11 @@
+[{
+    "media_name": "media/sample3.mp4",
+    "media_type": "video/mp4",
+    "thumbnail_name": "thumbnails/sample3.png",
+    "media_caption": "Sample 3"
+}, {
+    "media_name": "media/sample4.mp4",
+    "media_type": "video/mp4",
+    "thumbnail_name": "thumbnails/sample4.png",
+    "media_caption": "Sample 4"
+}]
