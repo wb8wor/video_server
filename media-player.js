@@ -6,8 +6,8 @@
 //
 // This was written as part of an article for the February 2013 edition of .net magazine (http://netmagazine.com/)
 
-// Wait for the DOM to be loaded before initialising the media player
-document.addEventListener("DOMContentLoaded", function() { initialiseMediaPlayer(); }, false);
+// Wait for the DOM to be loaded before initializing the media player
+document.addEventListener("DOMContentLoaded", function() { initializeMediaPlayer(); }, false);
 
 // Variables to store handles to various required elements
 var mediaPlayer;
@@ -19,7 +19,7 @@ var progressBar;
 
 // This function initializes the thumb flow menu.  It then adds
 // listener functions to handle the controls.
-function initialiseMediaPlayer() {
+function initializeMediaPlayer() {
     // Get a handle to the player
     mediaPlayer = document.getElementById('media-video');
     
@@ -46,6 +46,25 @@ function initialiseMediaPlayer() {
 		+ '</li>';
 
 	    document.getElementById ("thumbflow-list").innerHTML = collection_string;
+	});
+    });
+    
+    loadJSON1 (function (media_list) {
+	var mydata = JSON.parse(media_list);
+	var collection_string="";
+	
+	mydata.forEach (function(element, i) {
+	    collection_string += '<input type="radio" name="thumb-item" id=" thumb-'+ i + '"></input>'
+		+ '<li class="thumbflow-item">'
+		+ '  <label for=" thumb-' + i + '">'
+		+ '    <figure class="thumb-cover">'
+		+ '      <img onclick=\'loadVideo ("' + element.media_name + '","' + element.media_type +'");\' src="' + element.thumbnail_name + '"></img>'
+		+ '      <figcaption class="thumb-name">' + element.media_caption + '</figcaption>'
+		+ '    </figure>'
+		+ '  </label>'
+		+ '</li>';
+
+	    document.getElementById ("thumbflow-list1").innerHTML = collection_string;
 	});
     });
     
@@ -114,6 +133,20 @@ function loadJSON (callback) {
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType ("application/json");
     xobj.open ('GET', 'media-list.json', true);
+
+    xobj.onreadystatechange = function () {
+	if (xobj.readyState == 4 && xobj.status == "200") {
+	    callback (xobj.responseText);
+	}
+    };
+
+    xobj.send (null);
+}
+
+function loadJSON1 (callback) {
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType ("application/json");
+    xobj.open ('GET', 'media-list1.json', true);
 
     xobj.onreadystatechange = function () {
 	if (xobj.readyState == 4 && xobj.status == "200") {
