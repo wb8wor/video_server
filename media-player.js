@@ -30,12 +30,15 @@ function initializeMediaPlayer() {
     //    fullscreenBtn = document.getElementById('fullscreen-button');
 
     // Set up the thumbnail flow.
+    //
+    // TODO:  Need to figure out how to count the number of elements put in the list.
+    // right now it is hard coded.
     loadJSON (function (media_list) {
-	makeThumbFlow (media_list, "thumbflow-list");
+	makeThumbFlow (media_list, "thumbflow-list", 0);
     }, "media-list.json");
 
     loadJSON (function (media_list) {
-	makeThumbFlow (media_list, "thumbflow-list1");
+	makeThumbFlow (media_list, "thumbflow-list1", 2);
     }, "media-list1.json");
     
    // Add a listener for the timeupdate event so we can update the progress bar
@@ -72,14 +75,14 @@ function initializeMediaPlayer() {
     mediaPlayer.addEventListener('ended', function() { this.pause(); }, false);
 }
 
-function makeThumbFlow (media_list, div_name) {
+function makeThumbFlow (media_list, div_name, start_item_num) {
     var mydata = JSON.parse(media_list);
     var collection_string="";
     
     mydata.forEach (function(element, i) {
-	collection_string += '<input type="radio" name="thumb-item" id=" thumb-'+ i + '"></input>'
+	collection_string += '<input type="radio" name="thumb-item" id=" thumb-'+ (i + start_item_num) + '"></input>'
 	    + '<li class="thumbflow-item">'
-	    + '  <label for=" thumb-' + i + '">'
+	    + '  <label for=" thumb-' + (i + start_item_num) + '">'
 	    + '    <figure class="thumb-cover">'
 	    + '      <img onclick=\'loadVideo ("' + element.media_name + '","' + element.media_type +'");\' src="' + element.thumbnail_name + '"></img>'
 	    + '      <figcaption class="thumb-name">' + element.media_caption + '</figcaption>'
