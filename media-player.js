@@ -38,7 +38,7 @@ function initializeMediaPlayer() {
     }, "media-list.json");
 
     loadJSON (function (media_list) {
-	makeThumbFlow (media_list, "thumbflow-list1", 2);
+	makeThumbFlow (media_list, "thumbflow-list1", 100);
     }, "media-list1.json");
     
    // Add a listener for the timeupdate event so we can update the progress bar
